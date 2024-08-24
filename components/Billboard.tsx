@@ -44,3 +44,5 @@ const Billboard = () => {
         </div>
       );
     };
+
+    export default Billboard;

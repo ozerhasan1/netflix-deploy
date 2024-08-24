@@ -97,6 +97,6 @@ lg:flex
     
 </nav>
     )
-}
+};
 
 export default Navbar;

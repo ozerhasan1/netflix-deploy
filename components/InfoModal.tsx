@@ -6,16 +6,16 @@ import  FavoriteButton  from "./FavoriteButton";
 import useInfoModal from "@/hooks/useInfoModal";
 import useMovie from "@/hooks/useMovie";
 
-type Props = {
+interface InfoModalProps  {
   visible: boolean;
   onClose: () => void;
 };
 
-export const InfoModal = ({ visible, onClose }: Props) => {
-  const [isVisible, setIsVisible] = useState<boolean>(!!visible);
+const InfoModal : React.FC<InfoModalProps> = ({ visible, onClose })  => {
+  const [isVisible, setIsVisible] = useState(!!visible);
 
   const { movieId } = useInfoModal();
-  const { data } = useMovie(movieId);
+  const { data = {} } = useMovie(movieId);
 
   useEffect(() => {
     setIsVisible(!!visible);
@@ -23,8 +23,10 @@ export const InfoModal = ({ visible, onClose }: Props) => {
 
   const handleClose = useCallback(() => {
     setIsVisible(false);
-    setTimeout(onClose, 300);
-  }, [onClose]);
+    setTimeout(() =>{
+   onClose();
+    },300);
+   }, [onClose]);
 
   if (!visible) {
     return null;
@@ -75,7 +77,10 @@ export const InfoModal = ({ visible, onClose }: Props) => {
             <p className="text-white text-lg">{data?.description}</p>
           </div>
         </div>
+
       </div>
     </div>
-  );
-};
+  )
+}
+
+export default InfoModal;
